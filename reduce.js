@@ -1,15 +1,28 @@
 /*
-Write a function called extractValue which accepts an array of objects and a key and returns a new array with the value of each object at the key.
+Write a function called extractValue which accepts an array of objects and a key 
+and returns a new array with the value of each object at the key.
 
 Examples:
     const arr = [{name: 'Elie'}, {name: 'Tim'}, {name: 'Matt'}, {name: 'Colt'}]
     extractValue(arr,'name') // ['Elie', 'Tim', 'Matt', 'Colt']
 */
 
-function extractValue(arr, key) {}
+// Done!
+function extractValue(arr, key) {
+    return arr.reduce(function(names, obj) {
+        names.push(obj[key])
+        return names
+    }, [])
+}
+
+const arr = [{name: 'Elie'}, {name: 'Tim'}, {name: 'Matt'}, {name: 'Colt'}]
+// console.log(extractValue(arr,'name'))
 
 /*
-Write a function called vowelCount which accepts a string and returns an object with the keys as the vowel and the values as the number of times the vowel appears in the string. This function should be case insensitive so a lowercase letter and uppercase letter should count
+Write a function called vowelCount which accepts a string and returns an object 
+with the keys as the vowel and the values as the number of times the vowel 
+appears in the string. This function should be case insensitive so a lowercase 
+letter and uppercase letter should count
 
 Examples:
     vowelCount('Elie') // {e:2,i:1};
@@ -19,10 +32,27 @@ Examples:
     vowelCount('I Am awesome and so are you') // {i: 1, a: 4, e: 3, o: 3, u: 1};
 */
 
-function vowelCount(str) {}
+// Done!
+function vowelCount(str) {
+    const vowels = "aeiou"
+    return str.split("").reduce(function(obj, char) {
+        char = char.toLowerCase()
+        if (vowels.indexOf(char) !== -1) {
+            if (obj[char]) {
+                obj[char] ++
+            } else {
+                obj[char] = 1
+            }
+        }
+
+        return obj
+    }, {})
+}
 
 /*
-Write a function called addKeyAndValue which accepts an array of objects and returns the array of objects passed to it with each object now including the key and value passed to the function.
+Write a function called addKeyAndValue which accepts an array of objects and 
+returns the array of objects passed to it with each object now including the key 
+and value passed to the function.
 
 Examples:
     const arr = [{name: 'Elie'}, {name: 'Tim'}, {name: 'Matt'}, {name: 'Colt'}];
@@ -36,10 +66,22 @@ Examples:
        ]
 */
 
-function addKeyAndValue(arr, key, value) {}
+// Done!
+function addKeyAndValue(arr, key, value) {
+    return arr.reduce(function(newArr, obj, i) {
+        newArr[i][key] = value
+        return newArr
+    }, newArr)
+}
+
 
 /*
-Write a function called partition which accepts an array and a callback and returns an array with two arrays inside of it. The partition function should run the callback function on each value in the array and if the result of the callback function at that specific value is true, the value should be placed in the first subarray. If the result of the callback function at that specific value is false, the value should be placed in the second subarray. 
+Write a function called partition which accepts an array and a callback and 
+returns an array with two arrays inside of it. The partition function should run 
+the callback function on each value in the array and if the result 
+of the callback function at that specific value is true, the value should be placed 
+in the first subarray. If the result of the callback function at that specific 
+value is false, the value should be placed in the second subarray. 
 
 Examples:
     
@@ -57,7 +99,35 @@ Examples:
     
     const names = ['Elie', 'Colt', 'Tim', 'Matt'];
     
-    partition(names, isLongerThanThreeCharacters) // [['Elie', 'Colt', 'Matt'], ['Tim']]
+    partition(names, isLongerThanThreeCharacters) // [['Elie', 'Colt', 'Matt'], 
+    ['Tim']]
 */
 
-function partition(arr, callback) {}
+
+// function partition(arr, callback) {
+//     let arr1 = arr.reduce(function(accum, current) {
+//         if (callback(current)){ accum.push(current) }
+//         return accum
+//     }, []) 
+//     let arr2 = arr.reduce(function(accum, current) {
+//         if ( !callback(current)){ accum.push(current) }
+//         return accum
+//     }, []) 
+//     return [arr1, arr2]
+// }
+
+function partition(arr, cb) {
+    return arr.reduce(function(accum, current) {
+        if (cb(current)) accum[0].push(current) 
+        else accum[1].push(current)
+        return accum
+    }, [[],[]])
+}
+
+
+function isLongerThanThreeCharacters(val){
+    return val.length > 3;
+}
+
+const names = ['Elie', 'Colt', 'Tim', 'Matt'];
+
