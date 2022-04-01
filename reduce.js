@@ -44,7 +44,6 @@ function vowelCount(str) {
                 obj[char] = 1
             }
         }
-
         return obj
     }, {})
 }
@@ -68,10 +67,10 @@ Examples:
 
 // Done!
 function addKeyAndValue(arr, key, value) {
-    return arr.reduce(function(newArr, obj, i) {
-        newArr[i][key] = value
-        return newArr
-    }, newArr)
+    return arr.reduce(function(accum, obj, i) {
+        accum[i][key] = value
+        return accum
+    }, arr)
 }
 
 
